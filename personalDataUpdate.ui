@@ -18,21 +18,14 @@
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout">
       <item row="2" column="0">
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="deleteAll">
         <property name="text">
          <string>KİŞİYİ ve VERİLERİNİ SİL</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
-       <widget class="QPushButton" name="pushButton_3">
-        <property name="text">
-         <string>SADECE KİŞİYİ SİL</string>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="0">
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="nameUpdate">
         <property name="text">
          <string>İSİM GÜNCELLEME</string>
         </property>
@@ -43,12 +36,12 @@
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>TextLabel</string>
+           <string>AD SOAYAD</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit"/>
+         <widget class="QLineEdit" name="nameLine"/>
         </item>
        </layout>
       </item>

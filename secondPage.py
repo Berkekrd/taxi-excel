@@ -3,6 +3,7 @@ from PyQt5.QtCore import QObject, QThread, pyqtSignal
 from PyQt5.QtWidgets import * 
 from personal import Ui_MainWindow
 from openpyxl import Workbook,load_workbook
+import win32com.client
 
 class Worker(QObject):
 
@@ -23,19 +24,14 @@ class Worker(QObject):
         sayac=0
         for j in range(7,68,2):
             self.sayacSignal.emit(sayac)
-
             cValueText1=ws.cell(j,self.personalRow).value
             # cValueText1=cValueText1.replace(",",".")
             self.kasseGesamt.emit(float(cValueText1))
-
             cValueText2=ws.cell(j,self.personalRow+3).value
             # cValueText2=cValueText2.replace(",",".")
             self.barSignal.emit(str(cValueText2))
-
             self.writeSignal.emit()
-
             sayac=sayac+1
-
         self.finish.emit()
 
 class SecondPage(Ui_MainWindow,QtWidgets.QMainWindow):
@@ -147,6 +143,7 @@ class SecondPage(Ui_MainWindow,QtWidgets.QMainWindow):
         except Exception as e:
             self.errorLine.setText(f"Excel Güncellemesi Yapılamadı.{e}")
     
+
     def tableUpdate(self):
         try:
             for i in range (0,31):

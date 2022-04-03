@@ -5,6 +5,8 @@ from PyQt5.QtWidgets import *
 from humanfriendly import format_number 
 from general import Ui_MainWindow
 from openpyxl import Workbook,load_workbook
+import pandas as pd
+
 
 class Worker(QObject):
 
@@ -18,7 +20,8 @@ class Worker(QObject):
         self.line=line
 
     def setTable(self):
-        wb = load_workbook(self.line,data_only=True)
+
+        wb = load_workbook(self.line,data_only=True,keep_vba=True)
         ws = wb.active
         sayac=0
         for i in range(7,67,2):
@@ -33,6 +36,7 @@ class Worker(QObject):
             self.value.emit(str(ws.cell(i,13).value))
             self.writeSignal.emit()
             sayac=sayac+1
+
         
         
 class GeneralDetailPage(Ui_MainWindow,QtWidgets.QMainWindow):
@@ -48,17 +52,6 @@ class GeneralDetailPage(Ui_MainWindow,QtWidgets.QMainWindow):
         self.setTable()
 
     def setTable(self):
-        # wb = load_workbook(self.line,data_only=True)
-        # ws = wb.active
-        # sayac=0
-        # self.tableWidget.setRowCount(31) 
-        # print(ws.cell(7,3).value)
-        # for i in range(7,67,2):
-        #     for j in range(0,8):
-        #         self.tableWidget.setItem(sayac,0+j,QTableWidgetItem(str(ws.cell(i,3+j).value)))
-        #     self.tableWidget.setItem(sayac,9,QTableWidgetItem(str(ws.cell(i,13).value)))
-        #     sayac=sayac+1
-
         self.tableWidget.setRowCount(31) 
 
         self.my_thread = QThread(parent=self)

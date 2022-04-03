@@ -7,6 +7,7 @@ from PyQt5.QtCore import QObject,QThread,pyqtSignal
 from secondPage import SecondPage
 from genel import GeneralDetailPage
 import os
+from thirdPage import personalDatePAge
 
 class Worker(QObject):
 
@@ -45,8 +46,9 @@ class Window(Ui_mainWindow,QtWidgets.QMainWindow):
 
         self.exelListDetected()
         
-        # self.fileSearchButton.clicked.connect(self.browsefiles)
+        # self.fileSearchButton.clicked.connect(self.browsefiles)   
 
+        self.personalEditing.clicked.connect(self.personalDateUpdatePage)
         self.readExcelFileButton.clicked.connect(self.excelRead)
         self.personalDetailButton.clicked.connect(self.personalDetail)
         self.generalDetailButton.clicked.connect(self.generelDetail)
@@ -60,14 +62,9 @@ class Window(Ui_mainWindow,QtWidgets.QMainWindow):
         for i in range(len(self.exelList)):
             self.comboBox.addItem(self.exelList[i],i)
 
-    # def browsefiles(self):
-    #     fname=QFileDialog.getOpenFileName(self,'Open file','','EXCEL DOSYALARI (*.xlsx)')
-    #     try:
-    #         self.fileExtentionLine.setText(fname[0])
-    #     except:
-    #         self.fileExtentionLine.setText("DOSYA SEÇİLMEDİ")
 
     def excelRead(self):
+        self.comboBox.clear()
         if self.comboBox.currentText=="":
             self.errorTextEdit.append("Dosya Bulunamadı.")
         else:
@@ -103,20 +100,39 @@ class Window(Ui_mainWindow,QtWidgets.QMainWindow):
         self.errorTextEdit.append("İsimler Listelendi")
     
     def personalDetail(self):
-        # print(self.workerListComboBox.currentText())w
-        for i in range(len(self.arbeiter_name)):
-            if self.arbeiter_name[i]==self.workerListComboBox.currentText():
-                # print(self.arbeiterKasseGesamt[i])
-                # self.personalDetailPage=SecondPage(self.ws,self.arbeiterKasseGesamt[i])
-                self.personalDetailPage=SecondPage(self.comboBox.currentText(),self.arbeiterKasseGesamt[i],0)
-                self.personalDetailPage.show()  
+        # print(self.workerListComboBox.currentText())
+        try:
+            for i in range(len(self.arbeiter_name)):
+                if self.arbeiter_name[i]==self.workerListComboBox.currentText():
+                    # print(self.arbeiterKasseGesamt[i])
+                    # self.personalDetailPage=SecondPage(self.ws,self.arbeiterKasseGesamt[i])
+                    self.personalDetailPage=SecondPage(self.comboBox.currentText(),self.arbeiterKasseGesamt[i],0)
+                    self.personalDetailPage.show() 
+        except:
+            pass 
     
     def generelDetail(self):
-        if self.comboBox.currentText()=="":
-            self.errorTextEdit.setText("Dosya seçiniz...")
-        else:
-            self.generelDetailPage=GeneralDetailPage(self.comboBox.currentText())
-            self.generelDetailPage.show()
+        try:
+            if self.comboBox.currentText()=="":
+                self.errorTextEdit.setText("Dosya seçiniz...")
+            else:
+                self.generelDetailPage=GeneralDetailPage(self.comboBox.currentText())
+                self.generelDetailPage.show()
+        except:
+            pass
+
+    def personalDateUpdatePage(self):
+        try:
+            if self.comboBox.currentText()=="":
+                self.errorTextEdit.setText("Dosya seçiniz...")
+            else:
+                for i in range(len(self.arbeiter_name)):
+                    if self.arbeiter_name[i]==self.workerListComboBox.currentText():
+                        self.personalDatePage=personalDatePAge(self.comboBox.currentText(),self.arbeiterKasseGesamt[i],0)
+                        self.personalDatePage.show()
+        except:
+            pass
+            
 
 if __name__ == "__main__":
         app = QtWidgets.QApplication(sys.argv)
