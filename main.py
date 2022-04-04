@@ -62,9 +62,7 @@ class Window(Ui_mainWindow,QtWidgets.QMainWindow):
         for i in range(len(self.exelList)):
             self.comboBox.addItem(self.exelList[i],i)
 
-
     def excelRead(self):
-        self.comboBox.clear()
         if self.comboBox.currentText=="":
             self.errorTextEdit.append("Dosya Bulunamadı.")
         else:
