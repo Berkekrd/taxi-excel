@@ -26,11 +26,14 @@ class Worker(QObject):
         ws = wb.active
         arbeiter_name=[]
         arbeiterKasseGesamt=[]
+        print("3")
         for i in range(21,ws.max_column):
             if str(ws.cell(3,i).value) != "None" and ws.cell(3,i).value !="MITARBEITER NAME":
                 arbeiter_name.append(ws.cell(3,i).value)
                 arbeiterKasseGesamt.append(i)
+                print("deneem")
         self.arbeiter_name_signal.emit(arbeiter_name)
+        print("4")
         self.arbeiterKasseGesamtSignal.emit(arbeiterKasseGesamt)
         self.finished.emit()
 
@@ -71,13 +74,16 @@ class Window(Ui_mainWindow,QtWidgets.QMainWindow):
 
     def getExcelValue(self):
         try:
+            print("1")
             self.my_thread = QThread(parent=self)
             self.worker = Worker(self.comboBox.currentText())
             self.worker.moveToThread(self.my_thread)
             self.worker.display.connect(self.displayMain)
+            print("2")
             self.worker.arbeiter_name_signal.connect(self.setArbeiterName)
             self.worker.arbeiterKasseGesamtSignal.connect(self.setArbeiterKasseGesamt)
             self.worker.finished.connect(self.displayPersonalList)
+            print("3")
             self.my_thread.start()
             self.my_thread.started.connect(self.worker.getExcelValueWorker)
         except Exception as e:
