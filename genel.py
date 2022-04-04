@@ -1,8 +1,6 @@
-from time import sleep
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
 from PyQt5.QtWidgets import *
-from humanfriendly import format_number 
 from general import Ui_MainWindow
 from openpyxl import Workbook,load_workbook
 import pandas as pd
@@ -37,7 +35,6 @@ class Worker(QObject):
             self.writeSignal.emit()
             sayac=sayac+1
 
-        
         
 class GeneralDetailPage(Ui_MainWindow,QtWidgets.QMainWindow):
     def __init__(self,line):

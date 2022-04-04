@@ -1,8 +1,7 @@
 from PyQt5 import QtWidgets
 import sys
-from PyQt5.QtWidgets import QFileDialog
 from login import Ui_mainWindow
-from openpyxl import Workbook,load_workbook
+from openpyxl import load_workbook
 from PyQt5.QtCore import QObject,QThread,pyqtSignal
 from secondPage import SecondPage
 from genel import GeneralDetailPage

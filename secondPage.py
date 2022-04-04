@@ -2,8 +2,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
 from PyQt5.QtWidgets import * 
 from personal import Ui_MainWindow
-from openpyxl import Workbook,load_workbook
-import win32com.client
+from openpyxl import load_workbook
 
 class Worker(QObject):
 
